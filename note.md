@@ -9,4 +9,5 @@
 
 
 # why i am getting failed error why
+# trying to for redeploy
 # trying to deploy it on azure but keep failed waht to do
