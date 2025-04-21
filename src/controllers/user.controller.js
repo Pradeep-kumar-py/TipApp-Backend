@@ -99,6 +99,7 @@ export const loginUser = async (req, res) => {
             name: existingUser.name,
             email: existingUser.email,
             profileImage: existingUser.profileImage,
+            createdAt: existingUser.createdAt,
             // other fields you want to include
         };
 
