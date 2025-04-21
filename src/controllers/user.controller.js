@@ -7,7 +7,7 @@ import jwt from "jsonwebtoken";
 export const registerUser = async (req, res) => {
     try {
         // get data from request body
-        const { name, email, password, profilePic } = req.body;
+        const { name, email, password, } = req.body;
 
         //check it is empty or not
         if (name === "" || email === "" || password === "") {
@@ -27,7 +27,8 @@ export const registerUser = async (req, res) => {
             name,
             email,
             password,
-            profilePic
+            profileImage,
+            createdAt,
         });
 
         //generate access token and refresh token
