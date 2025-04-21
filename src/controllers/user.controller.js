@@ -98,7 +98,7 @@ export const loginUser = async (req, res) => {
             _id: existingUser._id,
             name: existingUser.name,
             email: existingUser.email,
-            profilePic: existingUser.profilePic,
+            profileImage: existingUser.profileImage,
             // other fields you want to include
         };
 

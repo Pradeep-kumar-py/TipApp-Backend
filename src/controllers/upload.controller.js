@@ -6,7 +6,7 @@ import { uploadImage } from "../utils/cloudinary.js";
 export const uploadProfileImage = async (req, res) => {
     try {
         // get the file fr;om the request
-        const profileImage = req.file?.path || null
+        const profileImage = req.file || null
         console.log("file: ",profileImage);
 
         // Check if the file wis present
@@ -54,7 +54,7 @@ export const uploadBook = async (req, res) => {
         }
 
         // get image from request
-        const image = req.file?.path || null;
+        const image = req.file || null;
         console.log("imagefile: ",image);
 
         // Check if the image is present
