@@ -34,7 +34,7 @@ export const uploadProfileImage = async (req, res) => {
     } catch (error) {
         // Handle any errors that occur during the upload process
         console.error("Error uploading image:", error);
-        return res.status(500).json({ message: "Server error from uploadProfileImage " });
+        return res.status(500).json({ message: "Server error from uploadProfileImage ", error });
     }
 }
 
