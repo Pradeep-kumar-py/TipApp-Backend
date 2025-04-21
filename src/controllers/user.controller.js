@@ -121,7 +121,7 @@ export const loginUser = async (req, res) => {
 export const logoutUser = async (req, res) => {
     try {
         // get data from request body
-        const { refreshToken } = req.body;
+        const refreshToken = req.header("Authorization").replace("Bearer ", "");
 
         //check it is empty or not
         if (!refreshToken) {
