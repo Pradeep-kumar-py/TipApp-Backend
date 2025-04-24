@@ -29,6 +29,7 @@ export const registerUser = async (req, res) => {
             password,
         });
 
+        
         //generate access token and refresh token
         const accessToken = newUser.generateAccessToken();
         const refreshToken = newUser.generateRefreshToken();
