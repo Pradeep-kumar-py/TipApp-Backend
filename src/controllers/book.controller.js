@@ -4,17 +4,17 @@ import { deleteImage } from "../utils/cloudinary.js";
 
 export const getAllBooks = async (req, res) => {
     try {
-        const page = parseInt(req.query.page) || 1; // Get the page number from query params, default to 1 
-        const limit = parseInt(req.query.limit) || 10; // Get the limit from query params, default to 10
-        const skip = (page - 1) * limit; // Calculate the number of documents to skip
-        const totalBooks = await Book.countDocuments(); // Get the total number of books
+        const page = parseInt(req.query.page) || 1;           // Get the page number from query params, default to 1 
+        const limit = parseInt(req.query.limit) || 10;       // Get the limit from query params, default to 10
+        const skip = (page - 1) * limit;                    // Calculate the number of documents to skip
+        const totalBooks = await Book.countDocuments();    // Get the total number of books
         const totalPages = Math.ceil(totalBooks / limit); // Calculate the total number of pages
 
 
         const books = await Book.find()
             .sort({ createdAt: -1 })
-            .skip(skip) // Skip the documents for pagination
-            .limit(limit) // Limit the number of documents returned
+            .skip(skip)                              // Skip the documents for pagination
+            .limit(limit)                           // Limit the number of documents returned
             .populate("user", "name profileImage") // Populate the author field with author details
 
 
@@ -102,5 +102,49 @@ export const deteteBook = async (req, res) => {
         return res.status(500).json({
             message: "Something went wrong while deleting the book",
         });
+    }
+}
+
+export const getRecomendedBooksByUser = async (req, res) => {
+    try {
+
+        const page = parseInt(req.query.page) || 1;           // Get the page number from query params, default to 1 
+        const limit = parseInt(req.query.limit) || 10       // Get the limit from query params, default to 10
+        const skip = (page - 1) * limit;                    // Calculate the number of documents to skip
+        const totalBooks = await Book.countDocuments({ user: req.user._id }); // Get the total number of books by user
+        const totalPages = Math.ceil(totalBooks / limit); // Calculate the total number of pages
+
+
+        // get user from request
+        const user = req.user;
+        console.log("user: ", user);
+        // get books by user id
+
+
+        const books = await Book.find({ user: user._id })
+            .sort({ createdAt: -1 })
+            .skip(skip) // Skip the documents for pagination
+            .limit(limit) // Limit the number of documents returned
+
+        console.log("Books fetched successfully: ", books);
+        // Check if books are found
+        if (!books || books.length === 0) {
+            return res.status(404).json({ message: "No books found" });
+        }
+
+        // Return the books in the response
+        return res.status(200).json({
+            message: "All books fetched successfully",
+            books,
+            totalBooks,
+            totalPages
+        });
+
+    } catch (error) {
+        console.error("Error in getAllBooks: ", error);
+        return res.status(500).json({
+            message: "Something went wrong while fetching books from get all books",
+        });
+
     }
 }
