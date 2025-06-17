@@ -3,6 +3,7 @@ import cors from 'cors';
 import userRoutes from './routes/user.route.js';
 import uploadRoutes from './routes/upload.route.js';
 import bookRoutes from './routes/book.route.js';
+import otpRoutes from './routes/otp.route.js';
 import dotenv from 'dotenv';
 import connectDB from './db/dbConnect.js';
 dotenv.config();
@@ -27,6 +28,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/api/user", userRoutes);
 app.use("/api/upload", uploadRoutes);
 app.use("/api/book", bookRoutes);
+app.use("/api/otp", otpRoutes);
 
 
 
