@@ -148,3 +148,34 @@ export const getRecomendedBooksByUser = async (req, res) => {
 
     }
 }
+
+export const getBookById = async (req, res) => {
+    try {
+        // get book by id from params
+        const bookId = req.params.id;
+
+        // check if bookId is valid
+        if (!bookId) {
+            return res.status(400).json({ message: "Book ID is required" });
+        }
+
+        // check if book exists
+        const book = await Book.findById(bookId).populate("user", "name profileImage");
+
+        if (!book) {
+            return res.status(404).json({ message: "Book not found" });
+        }
+
+        console.log("Book fetched successfully: ", book);
+        // return success response
+        return res.status(200).json({
+            message: "Book fetched successfully",
+            book,
+        });
+    } catch (error) {
+        console.error("Error in getBookById: ", error);
+        return res.status(500).json({
+            message: "Something went wrong while fetching the book",
+        });
+    }
+}
