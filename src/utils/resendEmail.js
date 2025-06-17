@@ -34,7 +34,7 @@ export const resendEmail = async (req, res) => {
         newotp.temporaryToken = temporaryToken;
 
         // generate a deeplink using the temporary token
-        const deeplink = `myapp://verify-otp?token=${temporaryToken}`;
+        const deeplink = `suggest://verify-otp?token=${temporaryToken}`;
 
         // console.log("Generated temporary token:", temporaryToken);
 
