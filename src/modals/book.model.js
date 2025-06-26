@@ -29,7 +29,11 @@ const bookSchema = new Schema({
     link: {
         type: String,
         default: "",
-    }
+    },
+    genre: {
+        type: String,
+        required: true,
+    },
 
 }, { timestamps: true });
 

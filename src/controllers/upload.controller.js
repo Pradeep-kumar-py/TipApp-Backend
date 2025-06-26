@@ -49,11 +49,11 @@ export const uploadProfileImage = async (req, res) => {
 export const uploadBook = async (req, res) => {
     try {
         // get book info body
-        const { title, caption, rating, link  } = req.body;
+        const { title, caption, rating, link, genre  } = req.body;
         console.log("body: ",req.body);
 
         // verify it is empty or not
-        if (!title || !caption || !rating ) {
+        if (!title || !caption || !rating || !genre ) {
             return res.status(400).json({ message: "Please fill all the fields" });
         }
 
@@ -85,7 +85,8 @@ export const uploadBook = async (req, res) => {
             image: result,
             rating,
             user: user._id,
-            link
+            link,
+            genre,
         });
 
         // save book to database
